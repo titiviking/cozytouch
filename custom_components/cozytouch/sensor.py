@@ -303,7 +303,12 @@ class CozytouchSensor(SensorEntity, CoordinatorEntity):
         self._config_uniq_id = config_uniq_id
         self._last_value: str | None = None
         self._device_uniq_id = config_uniq_id
-        self._attr_name = name
+        # Only set _attr_name when an explicit name is passed. Leaving it unset
+        # lets HA fall through to the translation_key lookup in _name_internal;
+        # setting it to None short-circuits that lookup and collapses the entity
+        # name to just the device name.
+        if name is not None:
+            self._attr_name = name
 
         if value_type:
             self._value_type = value_type
