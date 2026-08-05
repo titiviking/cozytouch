@@ -278,6 +278,7 @@ def get_capability_infos(modelInfos: dict, capabilityId: int, capabilityValue: s
             capability["timestampsCapabilityId"] = 222
         elif capabilityId == 227:
             capability["timestampsCapabilityId"] = 226
+            capability["capabilityDuplicate"] = 152
 
     elif capabilityId == 153:
         if modelInfos["type"] == CozytouchDeviceType.TOWEL_RACK:
@@ -755,11 +756,157 @@ def get_capability_infos(modelInfos: dict, capabilityId: int, capabilityValue: s
         capability["temperatureMin"] = 15.0
         capability["temperatureMax"] = 65.0
 
-    # For test
     elif capabilityId == 312:
-        capability["name"] = "Temp_" + str(capabilityId)
-        capability["type"] = "temperature_adjustment_number"
-        capability["category"] = "sensor"
+        # DHW_CURRENT_CONTROL_TARGET
+        capability["name"] = "current_control_target"
+        capability["type"] = "temperature"
+        capability["category"] = "diag"
+
+    # Explorer V5 (modelId 1641) DHW capability mappings.
+    # DHW_* enum semantics from genmllc/cozytouch; away_mode de-dup approach from pklinger/cozytouch.
+
+    elif capabilityId == 168:
+        # DHW_AVAILABLE_MODES bitmask
+        capability["name"] = "available_modes"
+        capability["type"] = "string"
+        capability["category"] = "diag"
+
+    elif capabilityId == 105011:
+        # DHW_SUPPORTED_MODES bitmask
+        capability["name"] = "supported_modes"
+        capability["type"] = "string"
+        capability["category"] = "diag"
+
+    elif capabilityId == 105012:
+        # DHW_SUPPORTED_HEATING_TYPE bitmask (1 AVAILABLE, 2 SCHEDULE, 4 OFF_PEAK, 8 SELF_CONSUMPTION)
+        capability["name"] = "supported_heating_type"
+        capability["type"] = "string"
+        capability["category"] = "diag"
+
+    elif capabilityId == 223:
+        # DHW_AVAILABLE_HEATING_TYPE
+        capability["name"] = "available_heating_type"
+        capability["type"] = "string"
+        capability["category"] = "diag"
+
+    elif capabilityId == 230:
+        # DHW_CURRENT_HEATING_TYPE
+        capability["name"] = "current_heating_type"
+        capability["type"] = "string"
+        capability["category"] = "diag"
+
+    elif capabilityId == 218:
+        # WifiState (0 UNKNOWN, 1 BLINKING, 2 NOT_BLINKING)
+        capability["name"] = "wifi_connected"
+        capability["type"] = "string"
+        capability["category"] = "diag"
+        capability["icon"] = "mdi:wifi"
+
+    elif capabilityId == 224:
+        # DHW_ESTIMATION_SUPPORT
+        capability["name"] = "estimation_support"
+        capability["type"] = "string"
+        capability["category"] = "diag"
+
+    elif capabilityId == 252:
+        # DHW_MAX_USER_TARGET
+        capability["name"] = "max_user_target"
+        capability["type"] = "temperature"
+        capability["category"] = "diag"
+
+    elif capabilityId == 253:
+        # DHW_MIN_USER_TARGET
+        capability["name"] = "min_user_target"
+        capability["type"] = "temperature"
+        capability["category"] = "diag"
+
+    elif capabilityId == 280:
+        # DHW_COLD_WATER_TEMPERATURE — inlet temperature used for V40 calculation
+        capability["name"] = "cold_water_temperature"
+        capability["type"] = "temperature"
+        capability["category"] = "diag"
+
+    elif capabilityId == 290:
+        # ERROR_CODE_DHW — all-zero means no active fault
+        capability["name"] = "error_code"
+        capability["type"] = "string"
+        capability["category"] = "diag"
+
+    elif capabilityId == 105300:
+        # DHW_WATER_LIMIT
+        capability["name"] = "water_limit"
+        capability["type"] = "int"
+        capability["category"] = "diag"
+
+    elif capabilityId == 105122:
+        # DHW_BOOST_END_TIMESTAMP
+        capability["name"] = "boost_end_timestamp"
+        capability["type"] = "int"
+        capability["category"] = "diag"
+
+    elif capabilityId == 307:
+        # Minimum heating duration per day in minutes
+        capability["name"] = "min_heating_duration_period_for_one_day"
+        capability["type"] = "int"
+        capability["category"] = "diag"
+
+    elif capabilityId == 333:
+        # Maximum heating duration per day in minutes
+        capability["name"] = "max_heating_duration_period_for_one_day"
+        capability["type"] = "int"
+        capability["category"] = "diag"
+
+    elif capabilityId == 329:
+        capability["name"] = "min_number_programming_range_per_day"
+        capability["type"] = "int"
+        capability["category"] = "diag"
+
+    elif capabilityId == 331:
+        # Maximum programming range duration in minutes
+        capability["name"] = "max_duration_prog_range"
+        capability["type"] = "int"
+        capability["category"] = "diag"
+
+    elif capabilityId == 332:
+        # Minimum programming range duration in minutes
+        capability["name"] = "min_duration_prog_range"
+        capability["type"] = "int"
+        capability["category"] = "diag"
+
+    elif capabilityId == 228:
+        # ABSENCE_DHW_TEMPERATURE
+        capability["name"] = "absence_temperature"
+        capability["type"] = "temperature"
+        capability["category"] = "diag"
+
+    # --- Unconfirmed stubs for Explorer V5 (modelId 1641) ---
+    # These update in real-time alongside mapped tank sensors but read 0 at idle.
+    # Confirm by diffing a cozytouch_dump.py capture taken while the heat pump is
+    # actively heating against an idle capture, then uncomment and remove the GUESS tags.
+    #
+    # elif capabilityId == 278:
+    #     # GUESS - confirm by diff: heat_pump_active (binary, 0=idle)
+    #     capability["name"] = "heat_pump_active"
+    #     capability["type"] = "binary"
+    #     capability["category"] = "diag"
+    #
+    # elif capabilityId == 281:
+    #     # GUESS - confirm by diff: electric_backup (binary, 0=idle)
+    #     capability["name"] = "electric_backup"
+    #     capability["type"] = "binary"
+    #     capability["category"] = "diag"
+    #
+    # elif capabilityId == 339:
+    #     # GUESS - confirm by diff: antilegionella_active (binary, 0=idle)
+    #     capability["name"] = "antilegionella_active"
+    #     capability["type"] = "binary"
+    #     capability["category"] = "diag"
+    #
+    # elif capabilityId == 288:
+    #     # GUESS - confirm by diff: operating_state (enum)
+    #     capability["name"] = "operating_state"
+    #     capability["type"] = "string"
+    #     capability["category"] = "diag"
 
     else:
         return None
