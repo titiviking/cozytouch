@@ -835,7 +835,7 @@ def get_capability_infos(modelInfos: dict, capabilityId: int, capabilityValue: s
     elif capabilityId == 105300:
         # DHW_WATER_LIMIT
         capability["name"] = "water_limit"
-        capability["type"] = "number"
+        capability["type"] = "int"
         capability["category"] = "diag"
 
     elif capabilityId == 105122:
