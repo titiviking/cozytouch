@@ -149,7 +149,8 @@
             "target_temperature_dhw":     { "name": "Température Consigne DHW" },
             "target_temperature_eco_z1":  { "name": "Température Consigne Eco Z1" },
             "target_temperature_eco_z2":  { "name": "Température Consigne Eco Z2" },
-            "temperature_adjustment_max": { "name": "Température Maximale" }
+            "temperature_adjustment_max": { "name": "Température Maximale" },
+            "v40_applied_setpoint":        { "name": "Consigne V40 Appliquée" }
         },
         "select": {
             "heating_mode":
@@ -272,6 +273,8 @@
             "cold_water_temperature":                    { "name": "Température Eau Froide" },
             "current_control_target":                    { "name": "Consigne Contrôle Actuel" },
             "current_heating_type":                      { "name": "Type Chauffe Actuel" },
+            "energy_consumed":                           { "name": "Énergie Consommée" },
+            "energy_consumed_secondary":                 { "name": "Énergie Consommée (secondaire)" },
             "error_code":                                { "name": "Code Erreur" },
             "estimation_support":                        { "name": "Support Estimation" },
             "max_duration_prog_range":                   { "name": "Durée Max Plage Prog" },

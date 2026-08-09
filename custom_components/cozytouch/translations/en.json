@@ -149,7 +149,8 @@
             "target_temperature_dhw":     { "name": "Target Temperature DHW" },
             "target_temperature_eco_z1":  { "name": "Target Temperature Eco Z1" },
             "target_temperature_eco_z2":  { "name": "Target Temperature Eco Z2" },
-            "temperature_adjustment_max": { "name": "Maximum Temperature" }
+            "temperature_adjustment_max": { "name": "Maximum Temperature" },
+            "v40_applied_setpoint":        { "name": "V40 Applied Setpoint" }
         },
         "select": {
             "heating_mode":
@@ -272,6 +273,8 @@
             "cold_water_temperature":                    { "name": "Cold Water Temperature" },
             "current_control_target":                    { "name": "Current Control Target" },
             "current_heating_type":                      { "name": "Current Heating Type" },
+            "energy_consumed":                           { "name": "Energy Consumed" },
+            "energy_consumed_secondary":                 { "name": "Energy Consumed (secondary)" },
             "error_code":                                { "name": "Error Code" },
             "estimation_support":                        { "name": "Estimation Support" },
             "max_duration_prog_range":                   { "name": "Max Programming Range Duration" },
