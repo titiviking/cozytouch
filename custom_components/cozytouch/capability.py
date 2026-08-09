@@ -168,8 +168,17 @@ def get_capability_infos(modelInfos: dict, capabilityId: int, capabilityValue: s
         capability["category"] = "sensor"
         capability["icon"] = "mdi:water-boiler"
 
-    elif capabilityId in (57, 59):
-        capability["name"] = "power_consumption"
+    elif capabilityId == 57:
+        # Secondary energy counter (semantics TBD; kept distinct from 59 so the
+        # two sensors no longer share a name -> no more "_2" entity_id suffix).
+        capability["name"] = "energy_consumed_secondary"
+        capability["type"] = "energy"
+        capability["displayed_unit_of_measurement"] = UnitOfEnergy.KILO_WATT_HOUR
+        capability["category"] = "sensor"
+
+    elif capabilityId == 59:
+        # Cumulative energy counter (updates live; 302331 Wh on the reference unit)
+        capability["name"] = "energy_consumed"
         capability["type"] = "energy"
         capability["displayed_unit_of_measurement"] = UnitOfEnergy.KILO_WATT_HOUR
         capability["category"] = "sensor"
@@ -743,7 +752,8 @@ def get_capability_infos(modelInfos: dict, capabilityId: int, capabilityValue: s
         capability["step"] = 5
 
     elif capabilityId == 105906:
-        capability["name"] = "Target 105906"
+        # DHW_V40_APPLIED_SETPOINT (per fork genmllc/cozytouch)
+        capability["name"] = "v40_applied_setpoint"
         capability["type"] = "temperature_percent_adjustment_number"
         capability["category"] = "sensor"
         capability["temperatureMin"] = 15.0
@@ -835,7 +845,7 @@ def get_capability_infos(modelInfos: dict, capabilityId: int, capabilityValue: s
     elif capabilityId == 105300:
         # DHW_WATER_LIMIT
         capability["name"] = "water_limit"
-        capability["type"] = "int"
+        capability["type"] = "temperature"
         capability["category"] = "diag"
 
     elif capabilityId == 105122:
